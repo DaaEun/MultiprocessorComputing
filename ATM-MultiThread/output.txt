@@ -1,0 +1,10 @@
+mother's 잔액 : 9,000 원 
+son's 잔액 : 8,000 원 
+mother's 잔액 : 7,000 원 
+son's 잔액 : 6,000 원 
+mother's 잔액 : 5,000 원 
+son's 잔액 : 4,000 원 
+mother's 잔액 : 3,000 원 
+son's 잔액 : 2,000 원 
+mother's 잔액 : 1,000 원 
+son's 잔액 : 0 원 
