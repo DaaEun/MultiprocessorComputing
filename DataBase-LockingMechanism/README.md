@@ -216,7 +216,7 @@ Database에서 어떤 테이블이 있다고 하자. 이 테이블은 다수의 
     
     3. 루프문은 Thread.currentThread().getName() + " -> " + data.read() 을 출력한다.
    
-### writer 클래스
+### Writer 클래스
 어떤 데이터를 쓰는 쓰레드
 
     1. Thread 클래스를 상속받는다.
@@ -256,23 +256,23 @@ Database에서 어떤 테이블이 있다고 하자. 이 테이블은 다수의 
     1. 읽기 접근 요청 수 readingReaders, 읽기 접근 대기 수 waitingReaders, preferReader (= false) 를 선언한다.
     (preferReader는 안전한 lock/ unlock 을 위해 적용된 읽기 접근 상태이다.)
 
-    1. 쓰기 접근 요청 수 writingWriters, 쓰기 접근 대기 수 waitingWriters, preferWriter (= true) 를 선언한다.
+    2. 쓰기 접근 요청 수 writingWriters, 쓰기 접근 대기 수 waitingWriters, preferWriter (= true) 를 선언한다.
     (preferWriter는 안전한 lock/ unlock 을 위해 적용된 쓰기 접근 상태이다.)
     
-    2. readLock() 메소드에서 읽기 접근 대기 수를 1 증가한다. 
+    3. readLock() 메소드에서 읽기 접근 대기 수를 1 증가한다. 
     쓰기 접근 요청이 있거나 쓰기 접근 대기가 있으면 wait() 의해 쓰레드는 Block 상태가 된다.
     읽기 접근 대기 수를 1 감소하고, 읽기 요청 대기 수를 1 증가한다.
     즉, 쓰기 접근 중이거나 쓰기 접근을 요청한 쓰레드가 존재하지 않는다면 읽기 접근을 요청하는 모든 쓰레드들에게 접근이 허용된다.
 
-    3. readUnlock() 메소드에서 읽기 접근 요청 수를 1 감소한다.
+    4. readUnlock() 메소드에서 읽기 접근 요청 수를 1 감소한다.
     notifyAll() 메소드 호출로 모든 대기 중인 쓰레드를 깨워, 자신이 요청한 접근을 획득할 수 있는지 확인한다. 
 
-    4. writeLock() 메소드에서 쓰기 접근 대기 수를 1 증가한다. 
+    5. writeLock() 메소드에서 쓰기 접근 대기 수를 1 증가한다. 
     읽기 접근 요청이 있거나 쓰기 접근 요청이 있거나 읽기 접근 대기가 있으면 wait() 의해 쓰레드는 Block 상태가 된다.
     쓰기 접근 대기 수를 1 감소하고, 쓰기 요청 대기 수를 1 증가한다.
     즉, 읽기/쓰기 접근 중인  쓰레드가 존재하지 않는 다면 쓰기 접근은 허용된다.
 
-    3. writeUnlock() 메소드에서 쓰기 접근 요청 수를 1 감소한다.
+    6. writeUnlock() 메소드에서 쓰기 접근 요청 수를 1 감소한다.
     notifyAll() 메소드 호출로 모든 대기 중인 쓰레드를 깨워, 자신이 요청한 접근을 획득할 수 있는지 확인한다.
 
 
